@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html ng-app="tictactoeApp">
+<head>
+	<title>Die Hard: Tic Tac Toe</title>
+		<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/style.css">
+
+
+
+	<script src="js/angular.min.js"></script>
+
+	<script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
+	<script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
+	
+	<script src="js/TictactoeController.js"></script>
+</head>
+	<body>
+
+	<div ng-controller="TictactoeController as ttt">
+	
+	<div class="container">		
+
+
+	<!-- start game container id="game_container"-->
+	<div class="row">
+
+	<!-- left sidebar  -->
+		<div class="col-md-3 left-sidebar">
+		    	<div class="row" ng-show="ttt.game.inProcess" class="animated fadeInDownBig">
+				    	<div class="col-md-4"><img id="team_mcclane" src="images/player_one.jpg"></div>
+					    	<div class="col-md-8">
+					    		<button class="team_button" ng-disabled="ttt.game.button" ng-click="ttt.joinTeam('McClane');">TEAM MCCLANE {{ttt.game.playerOne}}</button>
+					    	</div>	
+					    	<br>
+					    	<div class="row">
+					    	<div class="col-md-12">
+					    		<br>
+					    		<input type="text" ng-model="ttt.game.playerOne">	    
+					    	</div>
+					    	</div>
+		    	</div>		    		    	
+		</div>	
+	<!-- end left sidebar -->
+
+	
+	<!-- center section -->
+	<div class="col-md-6">  
+
+			<div id="logo_center">  	
+				<img id="logo" src="images/logo.png" class="animated fadeInDownBig"> 
+				<div ng-hide="ttt.status.length >0">
+					<h1 class="animated fadeInUpBig"><strong>TIC TAC TOE</strong></h1> 
+					<h3>Welcome To Nakatomi Plaza</h3>
+					<img src="images/nakatomi.jpg" id="nakatomi">	
+				</div>
+			</div>
+
+
+	    <div class="game-container" ng-hide="ttt.status.length >0">
+			<!-- top game board -->
+					
+					<button class="circle-button" ng-hide="ttt.game.inProcess" ng-click="ttt.startGame();">START GAME</button>
+	
+
+				<!-- Game Board -->
+				<div id="box" class="animated fadeInDownBig">
+					<button ng-repeat="r in ttt.game.row" class="square" ng-class="r.className" ng-click="ttt.changeScore(r);" ng-disabled="ttt.game.boardButton">
+					</button> 
+				</div>
+				<!-- End Game Board -->
+
+				    	<h3 ng-show="ttt.game.message">IT'S NOT YOUR TURN</h3>
+
+		    <div ng-show="ttt.game.button == false">
+		    	<h3 ng-hide="ttt.game.team.length > 0"><span id="team_turn"></span>{{ttt.game.choose | uppercase }}</h3>	
+		    	<h3 ng-show="ttt.game.team.length > 0"><span id="team_turn">CURRENT TURN:<br></span>{{ttt.game.team | uppercase }}</h3>
+		    	<h3 ng-show="ttt.game.turn == 'Gruber'"><span id="team_turn">Hans, <em>bubbe,</em> it's your TURN.</span></h3>
+		    	<h3 ng-show="ttt.game.turn == 'McClane'"><span id="team_turn">Come on, John,<em> think!</em> it's your TURN.</span></h3>
+			</div>
+	
+	<!-- bottom game board -->
+				
+		</div>
+
+		<div ng-show="ttt.status.length >0" class="score-container animated fadeIn">
+    		<h3>{{ttt.gameOver}}</h3>
+    		<h2 id="status">"{{ttt.status}}"</h2>
+			<img ng-src="{{ttt.source}}" class="status-image">		
+			<h2>NYPD COP AT L.A. CHRISTMAS PARTY: <span id="player_score">{{ttt.game.mcclaneWins}}</span></h2>
+			<h2>BANKROBBERS PRETENDING TO BE TERRORISTS: <span id="player_score">{{ttt.game.hansWins}}</span></h2>
+			<h2>TIE GAME: <span id="player_score">{{ttt.game.tieScore}}</span></h2>
+			<h2>TOTAL GAMES PLAYED: <span id="player_score">{{ttt.game.totalGames}}</span></h2>
+		
+
+				<div class="row">
+
+					<div class="col-md-6">	
+					<button ng-click="ttt.newScore();" class="team_button">RESET SCORES</button>
+					</div>
+
+					<div class="col-md-6">
+					<button class="rectangle_button" ng-disabled="ttt.game.inProcess" ng-click="ttt.newGame();">PLAY AGAIN</button>
+					</div>
+
+				</div>
+		
+		</div>	
+
+
+    </div>
+
+    <!-- right sidebar -->
+    <div class="col-md-3 right-sidebar">
+
+    		    	<div class="row" ng-show="ttt.game.inProcess" class="animated fadeInDownBig">
+				    	<div class="col-md-4">	<img id="team_gruber" src="images/player_two.png"></div>
+					    	<div class="col-md-8">
+					    		<button class="team_button" ng-disabled="ttt.game.button" ng-click="ttt.joinTeam('Gruber');">TEAM GRUBER</button>
+					    </div>
+		    		</div>
+    		
+    	
+
+    </div>
+    <!-- end right sidebar -->
+
+    </div>
+    <!-- end game container -->
+
+   </div>
+    <!-- end container  -->
+
+  </div>
+  <!-- end controller -->
+
+
+	</body>
+</html>

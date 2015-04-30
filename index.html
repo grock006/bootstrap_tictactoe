@@ -2,18 +2,18 @@
 <html ng-app="tictactoeApp">
 <head>
 	<title>Die Hard: Tic Tac Toe</title>
-		<!-- Latest compiled and minified CSS -->
+	
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/animate.min.css">
 	<link rel="stylesheet" href="css/style.css">
 
 
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src="js/angular.min.js"></script>
-
 	<script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
 	<script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
-	
 	<script src="js/TictactoeController.js"></script>
 </head>
 	<body>
@@ -35,10 +35,16 @@
 					    	</div>	
 					    	<br>
 					    	<div class="row">
-					    	<div class="col-md-12">
-					    		<br>
-					    		<input type="text" ng-model="ttt.game.playerOne">	    
-					    	</div>
+					    		<div class="col-md-10 col-md-offset-1">
+					    	
+					    		<form>
+								  <div class="form-group">
+								  	<br>
+								    <input type="text" class="form-control" placeholder="Enter your name" ng-model="ttt.game.playerOne" >
+								  </div>
+								</form>
+ 
+					    		</div>
 					    	</div>
 		    	</div>		    		    	
 		</div>	
@@ -50,18 +56,19 @@
 
 			<div id="logo_center">  	
 				<img id="logo" src="images/logo.png" class="animated fadeInDownBig"> 
-				<div ng-hide="ttt.status.length >0">
+				<div ng-hide="ttt.status.length > 0">
 					<h1 class="animated fadeInUpBig"><strong>TIC TAC TOE</strong></h1> 
 					<h3>Welcome To Nakatomi Plaza</h3>
 					<img src="images/nakatomi.jpg" id="nakatomi">	
 				</div>
+					<i class="fa fa-info-circle fa-lg info" data-toggle="modal" data-target="#myModal"></i>
 			</div>
 
 
 	    <div class="game-container" ng-hide="ttt.status.length >0">
 			<!-- top game board -->
 					
-					<button class="circle-button" ng-hide="ttt.game.inProcess" ng-click="ttt.startGame();">START GAME</button>
+					<button class="circle-button animated infinite pulse" ng-hide="ttt.game.inProcess" ng-click="ttt.startGame();">START GAME</button>
 	
 
 				<!-- Game Board -->
@@ -70,8 +77,6 @@
 					</button> 
 				</div>
 				<!-- End Game Board -->
-
-				    	<h3 ng-show="ttt.game.message">IT'S NOT YOUR TURN</h3>
 
 		    <div ng-show="ttt.game.button == false">
 		    	<h3 ng-hide="ttt.game.team.length > 0"><span id="team_turn"></span>{{ttt.game.choose | uppercase }}</h3>	
@@ -85,14 +90,24 @@
 		</div>
 
 		<div ng-show="ttt.status.length >0" class="score-container animated fadeIn">
-    		<h3>{{ttt.gameOver}}</h3>
+    		<h3 ng-show="ttt.game.winner.length > 0">YOU WIN {{ttt.game.winner | uppercase}}</h3>
     		<h2 id="status">"{{ttt.status}}"</h2>
 			<img ng-src="{{ttt.source}}" class="status-image">		
-			<h2>NYPD COP AT L.A. CHRISTMAS PARTY: <span id="player_score">{{ttt.game.mcclaneWins}}</span></h2>
-			<h2>BANKROBBERS PRETENDING TO BE TERRORISTS: <span id="player_score">{{ttt.game.hansWins}}</span></h2>
-			<h2>TIE GAME: <span id="player_score">{{ttt.game.tieScore}}</span></h2>
-			<h2>TOTAL GAMES PLAYED: <span id="player_score">{{ttt.game.totalGames}}</span></h2>
-		
+			
+			<div class="row">
+				<div class="col-md-3">
+					<h2>NYPD COP: <span id="player_score">{{ttt.game.mcclaneWins}}</span></h2>
+				</div>
+				<div class="col-md-3">
+					<h2>TERRORISTS: <span id="player_score">{{ttt.game.hansWins}}</span></h2>
+				</div>
+				<div class="col-md-3">
+					<h2>TIE GAME: <span id="player_score">{{ttt.game.tieScore}}</span></h2>
+				</div>
+				<div class="col-md-3">
+					<h2>TOTAL GAMES: <span id="player_score">{{ttt.game.totalGames}}</span></h2>
+				</div>
+			</div>
 
 				<div class="row">
 
@@ -101,7 +116,7 @@
 					</div>
 
 					<div class="col-md-6">
-					<button class="rectangle_button" ng-disabled="ttt.game.inProcess" ng-click="ttt.newGame();">PLAY AGAIN</button>
+					<button class="rectangle_button" ng-click="ttt.newGame();">PLAY AGAIN</button>
 					</div>
 
 				</div>
@@ -112,14 +127,26 @@
     </div>
 
     <!-- right sidebar -->
-    <div class="col-md-3 right-sidebar">
+    <div class="col-md-3 right-sidebar" ng-show="ttt.game.inProcess">
 
-    		    	<div class="row" ng-show="ttt.game.inProcess" class="animated fadeInDownBig">
+    		    	<div class="row" class="animated fadeInDownBig">
 				    	<div class="col-md-4">	<img id="team_gruber" src="images/player_two.png"></div>
 					    	<div class="col-md-8">
-					    		<button class="team_button" ng-disabled="ttt.game.button" ng-click="ttt.joinTeam('Gruber');">TEAM GRUBER</button>
+					    		<button class="team_button" ng-disabled="ttt.game.button" ng-click="ttt.joinTeam('Gruber');">TEAM GRUBER {{ttt.game.playerTwo}}</button>
 					    </div>
 		    		</div>
+		    		<br>
+					    	<div class="row">
+					    		<div class="col-md-10 col-md-offset-1">
+					    	
+					    		<form>
+								  <div class="form-group">
+								    <input type="text" class="form-control" placeholder="Enter your name" ng-model="ttt.game.playerTwo" >
+								  </div>
+								</form>
+ 
+					    		</div>
+					    	</div>
     		
     	
 
@@ -135,6 +162,22 @@
   </div>
   <!-- end controller -->
 
+  	<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding:10px"><span aria-hidden="true">&times;</span></button>
+		      <div class="modal-body">
+		     	<h3>ABOUT THE GAME:</h3>
+		     	<p>Click "Start Game" to play a match. It can also be played on two screens simultaneously so find a friend and enjoy!</p>
+			
+				<h3>ABOUT THE PROJECT:</h3>
+				<p>This version of Tic Tac Toe was produced by Greg Rock as his first project for General Assembly's Web Development Immersive program. It was built using AngularJS and Firebase.</p>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
+	
 	</body>
 </html>

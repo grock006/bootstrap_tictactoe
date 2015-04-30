@@ -10,7 +10,6 @@ var app = angular.module('tictactoeApp', ['firebase']);
 		  controller.game = getGameObject();
 		  controller.row = [{a:1},{a:1},{a:1},{a:1},{a:1},{a:1},{a:1},{a:1},{a:1}];
 		  controller.game.choose = "";
-		  controller.gameOver = "GAME OVER";
 		  controller.game.inProcess = false;
 
 		  controller.newGame = newGame;
@@ -24,6 +23,8 @@ var app = angular.module('tictactoeApp', ['firebase']);
 		  controller.game.mcclaneWins = 0;
 		  controller.game.tieScore = 0;
 		  controller.game.totalGames = 0;
+		  controller.game.playerOne = "";
+		  controller.game.playerTwo = "";
 	  
 	  
 	  function getGameObject() {
@@ -55,6 +56,9 @@ var app = angular.module('tictactoeApp', ['firebase']);
 		 	  controller.game.choose = "";
 		 	  controller.game.message ="";
 		 	  controller.game.button = false;
+		 	  controller.game.inProcess = false;
+		 	  controller.game.playerOne = "";
+		 	  controller.game.playerTwo = "";
 		 	  controller.game.$save();		   
 		 }
 
@@ -69,25 +73,6 @@ var app = angular.module('tictactoeApp', ['firebase']);
 		 function joinTeam(teamPick){
 		 		controller.game.team = teamPick;
 		 		controller.game.turn = teamPick;
-		 		if(controller.game.turn == controller.game.turn){
-		 		controller.game.team = teamPick;
-		 		controller.game.message = "";
-		 		controller.game.turnCounter++;
-		 		}
-		 		else{
-		 			controller.game.message = "It's Not Your Turn!";
-		 		}
-		 }
-
-		 function stopGame(){
-		 		controller.game.turn = null;
-		 		controller.game.choose = null;
-		 	  	controller.game.message = null;
-		 	  	controller.game.button = true;
-		 	  	controller.game.inProcess = false;
-		 	  	controller.game.boardButton = true;
-		 	  	controller.game.totalGames++;
-		 	  	controller.game.$save();
 		 }
 
 
@@ -96,60 +81,73 @@ var app = angular.module('tictactoeApp', ['firebase']);
 		 	    controller.status = "YIPPIE KI YAY, MOTHERFUCKER!!!!!";	
 		 	    controller.source = "images/one_wins.gif";
 		 	    controller.game.mcclaneWins++;
+		 	    controller.game.winner = controller.game.playerOne;
 		 	    stopGame();
+		 	     controller.game.$save();	
 		 	    }
 		 	    else if(controller.game.row[3].className == "markerx" && controller.game.row[4].className == "markerx" && controller.game.row[5].className == "markerx"){
 		 	    controller.status = "YIPPIE KI YAY, MOTHERFUCKER!!!!!";	
 		 	    controller.source = "images/one_wins.gif";
 		 	     controller.game.mcclaneWins++;
-		 	       stopGame();
+		 	     controller.game.winner = controller.game.playerOne;
+		 	     stopGame();
+		 	     controller.game.$save();	
 		 	    }
 		 	    else if(controller.game.row[6].className == "markerx" && controller.game.row[7].className == "markerx" && controller.game.row[8].className == "markerx"){
 		 	    controller.status = "YIPPIE KI YAY, MOTHERFUCKER!!!!!";	
 		 	    controller.source = "images/one_wins.gif";
 		 	     controller.game.mcclaneWins++;
+		 	     controller.game.winner = controller.game.playerOne;
 		 	       stopGame();
 		 	    }
 		 	    else if(controller.game.row[0].className == "markerx" && controller.game.row[3].className == "markerx" && controller.game.row[6].className == "markerx"){
 		 	    controller.status = "WELCOME TO THE PARTY, PAL!";
 		 	    controller.source = "images/one_wins2.gif";	
 		 	     controller.game.mcclaneWins++;
+		 	     controller.game.winner = controller.game.playerOne;
 		 	       stopGame();
 		 	    }
 		 	    else if(controller.game.row[1].className == "markerx" && controller.game.row[4].className == "markerx" && controller.game.row[7].className == "markerx"){
 		 	    controller.status = "WELCOME TO THE PARTY, PAL!";
 		 	    controller.source = "images/one_wins2.gif";	
 		 	     controller.game.mcclaneWins++;
+		 	     controller.game.winner = controller.game.playerOne;
 		 	       stopGame();
 		 	    }
 		 	    else if(controller.game.row[2].className == "markerx" && controller.game.row[5].className == "markerx" && controller.game.row[8].className == "markerx"){
 		 	    controller.status = "WELCOME TO THE PARTY, PAL!";
 		 	    controller.source = "images/one_wins2.gif";	
 		 	     controller.game.mcclaneWins++;
+		 	     controller.game.winner = controller.game.playerOne;
 		 	       stopGame();
 		 	    }
 		 	    else if(controller.game.row[0].className == "markerx" && controller.game.row[4].className == "markerx" && controller.game.row[8].className == "markerx"){
 		 	    controller.status = "Just a fly in the ointment, Hans. The monkey in the wrench. The pain in the ass.";	
 		 	    controller.source = "images/one_wins4.gif";
 		 	     controller.game.mcclaneWins++;
+		 	     controller.game.winner = controller.game.playerOne;
 		 	       stopGame();
 		 	    }
 		 	    else if(controller.game.row[2].className == "markerx" && controller.game.row[4].className == "markerx" && controller.game.row[6].className == "markerx"){
 		 	    controller.status = "Just a fly in the ointment, Hans. The monkey in the wrench. The pain in the ass.";	
 		 	    controller.source = "images/one_wins4.gif";
 		 	     controller.game.mcclaneWins++;
+		 	     controller.game.winner = controller.game.playerOne;
 		 	       stopGame();
 		 	    }
 		 	    else if(controller.game.row[0].className == "markero" && controller.game.row[1].className == "markero" && controller.game.row[2].className == "markero"){
 		 	    controller.status = "Just another American who saw too many movies as a child? Another orphan of a bankrupt culture who thinks he's John Wayne? Rambo? Marshal Dillon?";	
 		 	    controller.source = "images/two_wins.gif";
 		 	    controller.game.hansWins++;
+		 	    controller.game.winner = controller.game.playerTwo;
 		 	      stopGame();
 		 	    }
 		 	    else if(controller.game.row[3].className == "markero" && controller.game.row[4].className == "markero" && controller.game.row[5].className == "markero"){
 		 	    controller.status = "Just another American who saw too many movies as a child? Another orphan of a bankrupt culture who thinks he's John Wayne? Rambo? Marshal Dillon?";	
 		 	    controller.source = "images/two_wins.gif";
 		 	    controller.game.hansWins++;
+		 	    controller.game.winner = controller.game.playerTwo;
+		 	    controller.game.inProcess = false;
 		 	      stopGame();
 		 	    }
 		 	    else if(controller.game.row[6].className == "markero" && controller.game.row[7].className == "markero" && controller.game.row[8].className == "markero"){
@@ -162,40 +160,58 @@ var app = angular.module('tictactoeApp', ['firebase']);
 		 	    controller.status = "'And when Alexander saw the breadth of his domain, he wept, for there were no more worlds to conquer.' Benefits of a classical education.";
 		 	    controller.source = "images/two_wins2.gif";	
 		 	    controller.game.hansWins++;
+		 	    controller.game.winner = controller.game.playerTwo;
 		 	      stopGame();
 		 	    }
 		 	    else if(controller.game.row[1].className == "markero" && controller.game.row[4].className == "markero" && controller.game.row[7].className == "markero"){
 		 	    controller.status = "'And when Alexander saw the breadth of his domain, he wept, for there were no more worlds to conquer.' Benefits of a classical education.";
 		 	    controller.source = "images/two_wins2.gif";	
 		 	    controller.game.hansWins++;
+		 	    controller.game.winner = controller.game.playerTwo;
 		 	      stopGame();
 		 	    }
 		 	    else if(controller.game.row[2].className == "markero" && controller.game.row[5].className == "markero" && controller.game.row[8].className == "markero"){
 		 	    controller.status = "'And when Alexander saw the breadth of his domain, he wept, for there were no more worlds to conquer.' Benefits of a classical education.";
 		 	    controller.source = "images/two_wins2.gif";	
 		 	    controller.game.hansWins++;
+		 	    controller.game.winner = controller.game.playerTwo;
 		 	      stopGame();
 		 	    }
 		 	    else if(controller.game.row[0].className == "markero" && controller.game.row[4].className == "markero" && controller.game.row[8].className == "markero"){
 		 	    controller.status = "This time John Wayne does not walk off into the sunset with Grace Kelly.";	
 		 	    controller.source = "images/two_wins3.gif";
 		 	    controller.game.hansWins++;
+		 	    controller.game.winner = controller.game.playerTwo;
 		 	      stopGame();
 		 	    }
 		 	    else if(controller.game.row[2].className == "markero" && controller.game.row[4].className == "markero" && controller.game.row[6].className == "markero"){
 		 	    controller.status = "This time John Wayne does not walk off into the sunset with Grace Kelly.";	
 		 	    controller.source = "images/two_wins3.gif";
 		 	    controller.game.hansWins++;
+		 	    controller.game.winner = controller.game.playerTwo;
 		 	      stopGame();
 		 	    }
 		 	    else if(controller.game.turnCounter == 9){
 		 	    	controller.status = "TIE GAME: Hey, business is business. You use a gun, I use a fountain pen what's the difference?" 
 		 	    	controller.source = "images/tie.gif";
 		 	    	controller.game.tieScore++;
+		 	    	controller.game.winner = controller.game.playerTwo;
 		 	    	  stopGame();
 		 	    }
 		 	  	controller.game.$save();	
 		 	};
+
+		 	function stopGame(){
+		 		controller.game.row = [{},{},{},{},{},{},{},{},{}]; 	 
+		 		controller.game.turn = null;
+		 		controller.game.choose = null;
+		 	  	controller.game.message = null;
+		 	  	controller.game.button = true;
+		 	  	controller.game.inProcess = false;
+		 	  	controller.game.boardButton = true;
+		 	  	controller.game.totalGames++;
+		 	  	controller.game.$save();
+		 }
 
 
 				 function changeScore(row){

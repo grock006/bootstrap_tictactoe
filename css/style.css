@@ -101,10 +101,16 @@ i.info:hover {
 	border: 2px solid white;
 	outline: none;
 }
+#team_mcclane:hover {
+	height: 92px;
+}
 #team_gruber {
 	height: 88px;
 	border: 2px solid white;
 	outline: none;
+}
+#team_gruber:hover{
+	height: 92px;
 }
 
 .team_button {
@@ -114,9 +120,10 @@ i.info:hover {
 	color: white;
 	background-color: #AC1C16;
 	margin: 0px;
+	margin-left: 10px;
 	font-weight: bolder;
 	width: 100%;
-	border: 1px solid black;
+	border: 2px solid white;
 	text-shadow: 1px 1px black;
 	text-align: center;
 	cursor: pointer;

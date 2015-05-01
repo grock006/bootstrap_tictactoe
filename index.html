@@ -27,15 +27,15 @@
 	<div class="row">
 
 	<!-- left sidebar  -->
-		<div class="col-md-3 left-sidebar">
+		<div class="col-md-3 left-sidebar hidden-xs">
 		    	<div class="row" ng-show="ttt.game.inProcess" class="animated fadeInDownBig">
-				    	<div class="col-md-4"><img id="team_mcclane" src="images/player_one.jpg"></div>
-					    	<div class="col-md-8">
+				    	<div class="col-md-4 col-xs-4"><img id="team_mcclane" src="images/player_one.jpg"></div>
+					    	<div class="col-md-8 col-xs-8">
 					    		<button class="team_button" ng-disabled="ttt.game.button" ng-click="ttt.joinTeam('McClane');">TEAM MCCLANE {{ttt.game.playerOne}}</button>
 					    	</div>	
 					    	<br>
 					    	<div class="row">
-					    		<div class="col-md-10 col-md-offset-1">
+					    		<div class="col-md-10 col-md-offset-1 col-xs-6 col-xs-offset-3">
 					    	
 					    		<form>
 								  <div class="form-group">
@@ -52,7 +52,7 @@
 
 	
 	<!-- center section -->
-	<div class="col-md-6">  
+	<div class="col-md-6 col-xs-12">  
 
 			<div id="logo_center">  	
 				<img id="logo" src="images/logo.png" class="animated fadeInDownBig"> 
@@ -111,12 +111,12 @@
 
 				<div class="row">
 
-					<div class="col-md-6">	
+					<div class="col-md-6 col-sm-6 col-xs-6">	
 					<button ng-click="ttt.newScore();" class="team_button">RESET SCORES</button>
 					</div>
 
-					<div class="col-md-6">
-					<button class="rectangle_button" ng-click="ttt.newGame();">PLAY AGAIN</button>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+					<button class="team_button" ng-click="ttt.newGame();">PLAY AGAIN</button>
 					</div>
 
 				</div>
@@ -127,17 +127,17 @@
     </div>
 
     <!-- right sidebar -->
-    <div class="col-md-3 right-sidebar" ng-show="ttt.game.inProcess">
+    <div class="col-md-3 right-sidebar hidden-xs" ng-show="ttt.game.inProcess">
 
     		    	<div class="row" class="animated fadeInDownBig">
-				    	<div class="col-md-4">	<img id="team_gruber" src="images/player_two.png"></div>
-					    	<div class="col-md-8">
+				    	<div class="col-md-4 col-sm-4 col-xs-4">	<img id="team_gruber" src="images/player_two.png"></div>
+					    	<div class="col-md-8 col-sm-8 col-xs-8">
 					    		<button class="team_button" ng-disabled="ttt.game.button" ng-click="ttt.joinTeam('Gruber');">TEAM GRUBER {{ttt.game.playerTwo}}</button>
 					    </div>
 		    		</div>
 		    		<br>
 					    	<div class="row">
-					    		<div class="col-md-10 col-md-offset-1">
+					    		<div class="col-md-10 col-md-offset-1 col-xs-6 col-xs-offset-3">
 					    	
 					    		<form>
 								  <div class="form-group">
@@ -152,6 +152,23 @@
 
     </div>
     <!-- end right sidebar -->
+
+    		<div ng-show="ttt.game.inProcess">
+    			<div class="row visible-xs">
+    				<div class="col-xs-1">
+    					<img id="team_gruber" src="images/player_two.png">
+    				</div>
+    				<div class="col-xs-4 col-xs-offset-1">
+    					<button class="team_button" ng-disabled="ttt.game.button" ng-click="ttt.joinTeam('Gruber');">TEAM GRUBER {{ttt.game.playerTwo}}</button>
+    				</div>
+    				<div class="col-xs-1">
+    					<img id="team_mcclane" src="images/player_one.jpg">
+    				</div>
+    				<div class="col-xs-4 col-xs-offset-1">
+    					<button class="team_button" ng-disabled="ttt.game.button" ng-click="ttt.joinTeam('McClane');">TEAM MCCLANE {{ttt.game.playerOne}}</button>
+    				</div>
+    			</div>
+    		</div>
 
     </div>
     <!-- end game container -->

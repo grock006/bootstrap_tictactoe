@@ -59,6 +59,7 @@ var app = angular.module('tictactoeApp', ['firebase']);
 		 	  controller.game.inProcess = false;
 		 	  controller.game.playerOne = "";
 		 	  controller.game.playerTwo = "";
+		 	  controller.game.turnCounter = 0;
 		 	  controller.game.$save();		   
 		 }
 
@@ -222,11 +223,13 @@ var app = angular.module('tictactoeApp', ['firebase']);
 		 					if(controller.game.team == "McClane"){
 		 						row.className = "markerx";
 		 		    			controller.game.turn = "Gruber";
+		 		    			controller.game.turnCounter++;
 		 		    			joinTeam('Gruber');
 		 					}
 		 					else if(controller.game.team == "Gruber") {
 		 		   				row.className = "markero";
-		 		   				controller.game.turn = "McClane";	
+		 		   				controller.game.turn = "McClane";
+		 		   				controller.game.turnCounter++	
 		 		   				joinTeam('McClane');
 		 					} 
 		 				}		 					

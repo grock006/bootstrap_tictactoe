@@ -97,20 +97,15 @@ i.info:hover {
 /*  Buttons */
 
 #team_mcclane {
-	height: 88px;
+	height: 90px;
 	border: 2px solid white;
 	outline: none;
 }
-#team_mcclane:hover {
-	height: 92px;
-}
+
 #team_gruber {
-	height: 88px;
+	height: 90px;
 	border: 2px solid white;
 	outline: none;
-}
-#team_gruber:hover{
-	height: 92px;
 }
 
 .team_button {

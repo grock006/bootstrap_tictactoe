@@ -28,7 +28,7 @@ var app = angular.module('tictactoeApp', ['firebase']);
 	  
 	  
 	  function getGameObject() {
-		    var ref = new Firebase("https://diehardtictactoe.firebaseio.com/game");
+		    var ref = new Firebase("https://diehardttt.firebaseio.com/game");
 		    return $firebase(ref).$asObject();
 		  }
 

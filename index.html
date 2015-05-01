@@ -27,8 +27,9 @@
 	<div class="row">
 
 	<!-- left sidebar  -->
-		<div class="col-md-3 left-sidebar hidden-xs">
-		    	<div class="row" ng-show="ttt.game.inProcess" class="animated fadeInDownBig">
+		<div class="col-md-3 left-sidebar"> 
+				<div ng-show="ttt.game.inProcess">
+		    	<div class="row" class="animated fadeInDownBig">
 				    	<div class="col-md-4 col-xs-4"><img id="team_mcclane" src="images/player_one.jpg"></div>
 					    	<div class="col-md-8 col-xs-8">
 					    		<button class="team_button" ng-disabled="ttt.game.button" ng-click="ttt.joinTeam('McClane');">TEAM MCCLANE {{ttt.game.playerOne}}</button>
@@ -46,7 +47,8 @@
  
 					    		</div>
 					    	</div>
-		    	</div>		    		    	
+		    	</div>
+		    </div>			    		    	
 		</div>	
 	<!-- end left sidebar -->
 
@@ -147,9 +149,7 @@
  
 					    		</div>
 					    	</div>
-    		
-    	
-
+    		    	
     </div>
     <!-- end right sidebar -->
 
